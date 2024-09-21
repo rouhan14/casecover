@@ -1,6 +1,7 @@
 import { db } from '@/db'
 import { notFound } from 'next/navigation'
 import React from 'react'
+import DesignPreview from './DesignPreview'
 
 // The id is the key. We are talking about the id in the url.
 
@@ -27,7 +28,7 @@ const page = async ({searchParams}: PageProps) => {
     }
 
   return (
-    <DesignPreview />
+    <DesignPreview configuration={configuration} />
   )
 }
 

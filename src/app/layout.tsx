@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Recursive } from "next/font/google"
 import Providers from "../components/Providers"
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+
+
+const recursive = Recursive({ subsets: ['latin']})
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,11 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={recursive.className}
       >
         <Navbar />
 
-        <main className="flex flex-col min-h-[calc(100vh-3.5rem-1px)]">
+        <main className="flex grainy-light flex-col min-h-[calc(100vh-3.5rem-1px)]">
           <div className="flex-1 flex flex-col h-full">
             <Providers>{children}</Providers>
           </div>
