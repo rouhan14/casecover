@@ -39,7 +39,7 @@ enum CaseColor {
 }
 
 model Configuration {
-  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
   width           Int
   height          Int
   imageUrl        String
@@ -48,4 +48,57 @@ model Configuration {
   material        CaseMaterial?
   finish          CaseFinish?
   croppedImageUrl String?
+  order           Order[]
+}
+
+model User {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  email  String
+  oreder Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  configurationId String        @db.ObjectId // Remove ObjectId if any error occurs. I added them on my own.
+  configuration   Configuration @relation(fields: [configurationId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+  userId          String        @db.ObjectId // Remove ObjectId if any error occurs. I added them on my own.
+  amount          Float
+  isPaid          Boolean       @default(false)
+  status          OrderStatus
+
+  shippingAdress   ShippingAdress? @relation(fields: [shippingAdressId], references: [id])
+  shippingAdressId String?         @db.ObjectId
+  billingAdress    BillingAdress?  @relation(fields: [billingAdressId], references: [id])
+  billingAdressId  String?         @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ShippingAdress {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  orders      Order[]
+}
+
+model BillingAdress {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  orders      Order[]
 }

@@ -10,6 +10,7 @@ import { ArrowRight, Check } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
 import { BASE_PRICE, PRODUCT_PRICES } from '@/config/products'
 import { Button } from '@/components/ui/button'
+import { useMutation } from '@tanstack/react-query'
 
 
 const DesignPreview = ({configuration}: {configuration: Configuration}) => {
@@ -28,6 +29,11 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
 
     const [showConfetti, setShowConfetti] = useState(false)
     useEffect(() => setShowConfetti(true))
+
+    const {} = useMutation({
+        mutationKey: ["get-checkout-session"],
+        mutationFn: 
+    })
 
   return (
     <>
